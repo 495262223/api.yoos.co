@@ -34,6 +34,20 @@ class PreferenceCode
     }
 
     /**
+     * 获取优惠码
+     * @param Request $request
+     * @return array
+     */
+    function getCode(Request $request)
+    {
+        $orderId = $request->post('orderId');
+        if (empty($orderId)) {
+            return getJson(201, '请输入订单号码', []);
+        }
+        return getJson(200, '获取优惠码', ['orderId' => $orderId]);
+    }
+
+    /**
      * 批量添加优惠码
      * @return array
      * @throws \PHPExcel_Exception

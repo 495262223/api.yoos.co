@@ -19,6 +19,7 @@ Route::group('api', function () {
     });
     Route::group('code', function () {
         Route::post('saveUploadCode', 'index/PreferenceCode/saveUploadCode');//批量添加优惠码
+        Route::post('getCode','index/PreferenceCode/getCode');//获取优惠码
         Route::get('findRandomCode', 'index/PreferenceCode/findRandomCode');
     });
     Route::group('codeRecord', function () {
