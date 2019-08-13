@@ -25,14 +25,14 @@ class DiscountCodeRecording
         $this->yoosco = new Yoosco();
     }
 
-    function saveCodeRecord()
-    {
-        $data = [
-            'orderid' => '3213213213123',
-            'code' => '1232131312312313'
-        ];
-        $result = $this->yoosco->saveCodeRecord($data);
-        return getJson(200, 'ok', $result);
-    }
+//    function saveCodeRecord()
+//    {
+//        $data = [
+//            'orderid' => '3213213213123',
+//            'code' => '1232131312312313'
+//        ];
+//        $result = $this->yoosco->saveCodeRecord($data);
+//        return getJson(200, 'ok', $result);
+//    }
 
 }

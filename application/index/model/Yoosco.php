@@ -28,7 +28,65 @@ class Yoosco extends Model
         'charset' => 'utf8'
     ];
 
-    //套餐列表**********************************************************************************************************
+    //实例配置变更通知****************************************************************************************************
+
+    function getModifyinstance($orderId)
+    {
+        $data = self::table('modifyinstance')->where('orderId', $orderId)->find();
+        return $data;
+    }
+
+    function getModifyinstanceSignId($signId)
+    {
+        $data = self::table('modifyinstance')->where('signId', $signId)->find();
+        return $data;
+    }
+
+    //END***************************************************************************************************************
+
+    //实例续费通知*******************************************************************************************************
+
+    /**
+     * 查询单条实例续费记录
+     * @param $orderId
+     * @return array|false|\PDOStatement|string|Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getRenewinstance($orderId)
+    {
+        $data = self::table('renewinstance')->where('orderId', $orderId)->find();
+        return $data;
+    }
+
+    //END***************************************************************************************************************
+
+    //实例创建通知*******************************************************************************************************
+
+    /**
+     * 查询单条实例记录
+     * @param $orderId  订单号
+     * @return array|false|\PDOStatement|string|Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getCreateinstance($orderId)
+    {
+        $data = self::table('createinstance')->where('orderId', $orderId)->find();;
+        return $data;
+    }
+
+    function getCreateinstanceSignId($signId)
+    {
+        $data = self::table('createinstance')->where('signId', $signId)->find();
+        return $data;
+    }
+
+    //END***************************************************************************************************************
+
+    //套餐列表***********************************************************************************************************
 
     /**
      * 添加套餐列表
@@ -64,10 +122,22 @@ class Yoosco extends Model
      * @param $data
      * @return int|string
      */
-    function saveCodeRecord($data)
+    function saveCodeRecord($orderId, $code)
     {
+        $data = ["orderid" => $orderId, "code" => $code];
         $result = self::table('discountcoderecording')->insert($data);
         return $result;
+    }
+
+    /**
+     * 订单号检查
+     * @param $orderId
+     * @return int|string
+     */
+    function findOneCodeRecord($orderId)
+    {
+        $count = self::table('discountcoderecording')->where('orderid', $orderId)->count();
+        return $count;
     }
 
     //END***************************************************************************************************************
