@@ -28,6 +28,22 @@ class Yoosco extends Model
         'charset' => 'utf8'
     ];
 
+    //后台登录通知*******************************************************************************************************
+
+    /**
+     * 登录
+     * @param $userName 账号
+     * @param $userPass 密码
+     * @return int|string
+     */
+    function LoginUser($userName, $userPass)
+    {
+        $result = self::table('user')->where(['userName' => $userName, 'userPass' => $userPass])->count();
+        return $result;
+    }
+
+    //END***************************************************************************************************************
+
     //实例配置变更通知****************************************************************************************************
 
     function getModifyinstance($orderId)

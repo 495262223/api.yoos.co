@@ -19,7 +19,7 @@ Route::group('api', function () {
     });
     Route::group('code', function () {
         Route::post('saveUploadCode', 'index/PreferenceCode/saveUploadCode');//批量添加优惠码
-        Route::post('getCode','index/PreferenceCode/getCode');//获取优惠码
+        Route::post('getCode', 'index/PreferenceCode/getCode');//获取优惠码
         Route::get('findRandomCode', 'index/PreferenceCode/findRandomCode');
     });
     Route::group('codeRecord', function () {
@@ -28,6 +28,9 @@ Route::group('api', function () {
     Route::group('setMeal', function () {
         Route::post('saveSetMeal', 'index/SetMeal/saveSetMeal');//添加套餐
         Route::get('findOneMeal', 'index/SetMeal/findOneMeal');
+    });
+    Route::group('user', function () {
+        Route::post('login', 'index/User/LoginUser');//用户登录
     });
 });
 
