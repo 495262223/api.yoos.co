@@ -44,6 +44,13 @@
 
 <script type="text/javascript">
 
+    $(function () {
+        var code = sessionStorage.getItem("code");
+        if (code != 200) {
+            window.location.href = "login.html"
+        }
+    });
+
     function uploadCodes() {
         var excel = $('#codesFile').get(0).files[0];
         if (!excel) {
