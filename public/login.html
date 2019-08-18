@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理登录</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="panel panel-default" style="margin: 20% 30%;">
+    <div class="panel-heading">
+        <h1 class="panel-title" style="text-align: center;font-size: 30px">
+            管理登录
+        </h1>
+    </div>
+    <div class="panel-body">
+        <form method="post" class="form-horizontal" style="text-align: center" id="user">
+            <div class="form-group">
+                <label for="userName" class="col-sm-2 control-label" style="width: 100px">账号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="请输入账号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userPass" class="col-sm-2 control-label" style="width: 100px">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="userPass" name="userPass" placeholder="请输入密码">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10" style="margin-left: 10%">
+                    <button type="button" class="btn btn-default" onclick="login()">登录</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function login() {
+
+        var userName = document.getElementById("userName").value;
+        var userPass = document.getElementById("userPass").value;
+        if (userName == null || userName === "") {
+            alert("请输入账号");
+            return;
+        }
+        if (userPass == null || userPass === "") {
+            alert("请输入密码");
+            return;
+        }
+        $.ajax({
+            url: "https://api.yoos.co/api/user/login",
+            type: "post",
+            data: {
+                'userName': userName,
+                'userPass': userPass
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data.message);
+                if (data.code == 200) {
+                    sessionStorage.setItem("code", data.code);
+                    window.location.href = "admin.html";
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (e) {
+                console.log(e.message);
+                alert(e.message)
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

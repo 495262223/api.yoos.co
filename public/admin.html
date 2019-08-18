@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据后台</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="panel panel-default" style="margin: 20% 30%;">
+    <div class="panel-heading">
+        <h1 class="panel-title" style="text-align: center;font-size: 30px">
+            上传数据
+        </h1>
+    </div>
+    <div class="panel-body">
+        <form enctype="multipart/form-data" method="post" class="form-inline" style="text-align: center" id="goods">
+            <div class="form-group">商品列表上传　　　</div>
+            <div class="form-group">
+
+                <input type="file" id="goodsFile" name="excel">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="uploadGoods()">商品表上传</button>
+        </form>
+
+        <form enctype="multipart/form-data" method="post" id="codes" class="form-inline"
+              style="text-align: center;margin-top: 30px">
+            <div class="form-group">优惠码上传　　　　</div>
+            <div class="form-group">
+
+                <input type="file" id="codesFile" name="excel">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="uploadCodes()">优惠码上传</button>
+        </form>
+
+        <div class="form-inline" role="form" style="text-align: center;margin-top: 50px"><h4>注:
+            所有数据上传类型Excel格式必须为xls或者xlsx后缀!!!</h4></div>
+
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+    $(function () {
+        var code = sessionStorage.getItem("code");
+        if (code != 200) {
+            window.location.href = "login.html"
+        }
+    });
+
+    function uploadCodes() {
+        var excel = $('#codesFile').get(0).files[0];
+        if (!excel) {
+            alert("请选择上传文件");
+            return;
+        }
+        var formData = new FormData(document.getElementById("codes"));
+        $.ajax({
+            url: "https://api.yoos.co/api/code/saveUploadCode",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data.message);
+                alert(data.message)
+            },
+            error: function (e) {
+                console.log(e.message);
+                alert(e.message)
+            }
+        });
+    }
+
+    function uploadGoods() {
+        var excel = $('#goodsFile').get(0).files[0];
+        if (!excel) {
+            alert("请选择上传文件");
+            return;
+        }
+        var formData = new FormData(document.getElementById("goods"));
+        $.ajax({
+            url: "https://api.yoos.co/api/goods/saveUploadGoods",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data.message);
+                alert(data.message)
+            },
+            error: function (e) {
+                console.log(e.message);
+                alert(e.message)
+            }
+        });
+    }
+
+</script>
+
+</html>
