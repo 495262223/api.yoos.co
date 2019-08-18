@@ -127,7 +127,7 @@ class PreferenceCode
                 return getJson(202, '获取优惠码失败,该订单号无效', []);
             }
         }
-        return getJson(210, "优惠码有误,请检查后重新输入", []);
+        return getJson(210, "订单号有误,请检查后重新输入", []);
     }
 
     function getCodeData($orderId, $spec, $time)
@@ -191,9 +191,12 @@ class PreferenceCode
             $index_a = 0;
             foreach ($arrExcel as $key => $value) {
                 $index_b = 0;
+                $count = $this->yoosco->VerificationCode($arrExcel[$key][0]);
                 for ($i = 0; $i < count($titles); $i++) {
-                    $data[$index_a][$titles[$i]] = $arrExcel[$key][$index_b];
-                    $index_b++;
+                    if (!$count) {
+                        $data[$index_a][$titles[$i]] = $arrExcel[$key][$index_b];
+                        $index_b++;
+                    }
                 }
                 $index_a++;
             }

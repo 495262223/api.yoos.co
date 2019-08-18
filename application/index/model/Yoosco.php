@@ -17,16 +17,32 @@ class Yoosco extends Model
         // 数据库类型
         'type' => 'mysql',
         // 服务器地址
-        'hostname' => '127.0.0.1',
+        'hostname' => '118.24.97.56',
         // 数据库名
-        'database' => 'yoosco',
+        'database' => 'vo_yoos_co',
         // 数据库用户名
-        'username' => 'root',
+        'username' => 'vo_yoos_co',
         // 数据库密码
-        'password' => 'root',
+        'password' => '2crPEEjFYDb3HZD4',
         // 数据库编码默认采用utf8
         'charset' => 'utf8'
     ];
+
+    //后台登录通知*******************************************************************************************************
+
+    /**
+     * 登录
+     * @param $userName 账号
+     * @param $userPass 密码
+     * @return int|string
+     */
+    function LoginUser($userName, $userPass)
+    {
+        $result = self::table('user')->where(['userName' => $userName, 'userPass' => $userPass])->count();
+        return $result;
+    }
+
+    //END***************************************************************************************************************
 
     //实例配置变更通知****************************************************************************************************
 
@@ -156,6 +172,17 @@ class Yoosco extends Model
     }
 
     /**
+     * 验证商品是否存在
+     * @param $good_id
+     * @return int|string
+     */
+    function VerificationGood($good_id)
+    {
+        $count = self::table('goods')->where('good_id', $good_id)->count();
+        return $count;
+    }
+
+    /**
      * 查询单个商品信息
      * @param $id
      * @return array|false|\PDOStatement|string|Model
@@ -181,6 +208,17 @@ class Yoosco extends Model
     {
         $result = self::table('preferencecode')->insertAll($data);
         return $result;
+    }
+
+    /**
+     * 验证优惠码是否存在
+     * @param $code
+     * @return int|string
+     */
+    function VerificationCode($code)
+    {
+        $count = self::table('preferencecode')->where('code', $code)->count();
+        return $count;
     }
 
     /**

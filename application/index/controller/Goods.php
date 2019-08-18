@@ -63,9 +63,12 @@ class Goods
             $index_a = 0;
             foreach ($arrExcel as $key => $value) {
                 $index_b = 0;
+                $count = $this->yoosco->VerificationGood($arrExcel[$key][0]);
                 for ($i = 0; $i < count($titles); $i++) {
-                    $data[$index_a][$titles[$i]] = $arrExcel[$key][$index_b];
-                    $index_b++;
+                    if (!$count){
+                        $data[$index_a][$titles[$i]] = $arrExcel[$key][$index_b];
+                        $index_b++;
+                    }
                 }
                 $index_a++;
             }
